@@ -1,0 +1,122 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date:    10:24:40 11/14/2014 
+// Design Name: 
+// Module Name:    Circular_FIFO_module 
+// Project Name: 
+// Target Devices: 
+// Tool versions: 
+// Description: 
+//
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
+
+
+//A- input FIFO 1
+//B - input FIFO 2
+	module Circular_FIFO_module#(
+	parameter Data=256,
+	parameter Adbus=3)(
+		 input wire             clk,
+		 input wire             wr_en_A,           //write enable
+		 input wire             rd_en_A,            //read _enable
+		 input wire [Data-1:0]  Data_in_A,
+		 output reg [Data-1:0]  Data_out_A,
+		 output reg             In_Busy_A,         //interupt indicate fifo full
+		 output reg		         Out_Busy_A,        //interupt indicate fifo empty
+		 
+		 input wire             wr_en_B,           
+		 input wire             rd_en_B,            
+		 input wire [Data-1:0]  Data_in_B,
+		 output reg [Data-1:0]  Data_out_B,
+		 output reg             In_Busy_B,         //interupt indicate fifo full
+		 output reg		         Out_Busy_B 
+		
+		 
+		 );
+	
+	reg [Data-1:0]  memory_A [0:7],memory_B [0:7];
+	reg [Adbus-1:0] rd_addr_A,wr_addr_A,rd_addr_B,wr_addr_B;                 //read write address of FIFO
+	reg [3:0] count_A,count_B;                                 //count variable to check FIFO is full or not
+	
+	
+	initial begin
+		rd_addr_A <= 6'h0;
+		wr_addr_A <= 6'h0;
+		count_A   <= 4'h0;
+		Out_Busy_A<=1'h0;
+		In_Busy_A <=1'h0;
+		
+		rd_addr_B <= 6'h0;
+		wr_addr_B <= 6'h0;
+		count_B   <= 4'h0;
+		Out_Busy_B<=1'h0;
+		In_Busy_B <=1'h0;
+		$dumpfile("test.vcd");
+		$dumpvars();
+		
+		end
+		
+	always@(posedge clk) begin
+		if(wr_en_A && !count_A[3]) begin
+			memory_A [wr_addr_A] <= Data_in_A;
+			wr_addr_A            <= (wr_addr_A+1'h1)%4'h8;    //increase the counter to write in fifo
+			count_A              <=  count_A +1'h1;		
+			end
+
+			if(count_A[3]==1'h1)
+				In_Busy_A<=1'h1;
+			else
+				In_Busy_A<=1'h0;
+			
+
+		if(rd_en_A && count_A[3:0]!=4'h0) begin
+			Data_out_A <=  memory_A [rd_addr_A];
+			rd_addr_A  <= (rd_addr_A+1'h1)%4'h8;
+			count_A    <= count_A-1'h1;					
+			end
+
+		if(count_A[3:0]==4'h0)
+			Out_Busy_A<=1'h1;
+		else
+			Out_Busy_A<=1'h0;
+		end
+		
+	always @(posedge clk) begin		
+		if(wr_en_B && !count_B[3]) begin
+			memory_B [wr_addr_B] <= Data_in_B;
+			wr_addr_B            <= (wr_addr_B+1'h1)%4'h8;
+			count_B              <=  count_B +1'h1;
+			
+			end
+			
+		if(count_B[3]==1'h1)
+				In_Busy_B<=1'h1;
+			else
+				In_Busy_B<=1'h0;
+
+		if(rd_en_B && count_A[3:0]!=4'h0) begin
+			Data_out_B <= memory_B [rd_addr_B];
+			rd_addr_B  <= (rd_addr_B+1'h1)%4'h8;
+			count_B    <= count_B-1'h1;
+			
+			if(count_B[3:0]==4'h1)
+				Out_Busy_B<=1'h1;
+			else
+				Out_Busy_B<=1'h0;
+			end
+		end
+		
+			
+	
+
+endmodule
+

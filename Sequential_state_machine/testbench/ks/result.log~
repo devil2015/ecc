@@ -1,0 +1,43 @@
+make results.xml
+make[1]: Entering directory `/home/lab1/devel/scalar_mul/testbench/ks'
+iverilog -o sim_build/sim.vvp -D COCOTB_SIM=1   /home/lab1/devel/scalar_mul/testbench/ks/../../hdl/multipliers/state_machine_scalar_mul.v /home/lab1/devel/scalar_mul/testbench/ks/../../hdl/multipliers/Ram_interface_scalar_mul.v /home/lab1/devel/scalar_mul/testbench/ks/../../hdl/multipliers/Ram_transfer_scalar_mul.v /home/lab1/devel/scalar_mul/testbench/ks/../../hdl/multipliers/state_machine_3.v /home/lab1/devel/scalar_mul/testbench/ks/../../hdl/multipliers/scalar_multiplication_module.v /home/lab1/devel/scalar_mul/testbench/ks/../../hdl/multipliers/Ram_module_scalar_mul.v /home/lab1/devel/scalar_mul/testbench/ks/../../hdl/multipliers/state_machine_inverse.v /home/lab1/devel/scalar_mul/testbench/ks/../../hdl/multipliers/Ram_transfer.v /home/lab1/devel/scalar_mul/testbench/ks/../../hdl/multipliers/Outer_Ram_interface.v /home/lab1/devel/scalar_mul/testbench/ks/../../hdl/multipliers/point_addition_module.v /home/lab1/devel/scalar_mul/testbench/ks/../../hdl/multipliers/point_double_module.v /home/lab1/devel/scalar_mul/testbench/ks/../../hdl/multipliers/Outer_Ram_Module.v /home/lab1/devel/scalar_mul/testbench/ks/../../hdl/multipliers/inverse_itoha_tsuji_module.v /home/lab1/devel/scalar_mul/testbench/ks/../../hdl/multipliers/ideal_module.v /home/lab1/devel/scalar_mul/testbench/ks/../../hdl/multipliers/dma_sample_code.v /home/lab1/devel/scalar_mul/testbench/ks/../../hdl/multipliers/Xor_new.v /home/lab1/devel/scalar_mul/testbench/ks/../../hdl/multipliers/redution_256.v /home/lab1/devel/scalar_mul/testbench/ks/../../hdl/multipliers/Square_571.v /home/lab1/devel/scalar_mul/testbench/ks/../../hdl/multipliers/multiplication_recursive_module.v /home/lab1/devel/scalar_mul/testbench/ks/../../hdl/multipliers/Ram_data_swaping_module.v /home/lab1/devel/scalar_mul/testbench/ks/../../hdl/multipliers/Ram_Interface_Module.v /home/lab1/devel/scalar_mul/testbench/ks/../../hdl/multipliers/lower_bit_implementation.v /home/lab1/devel/scalar_mul/testbench/ks/../../hdl/multipliers/Masking_Module.v /home/lab1/devel/scalar_mul/testbench/ks/../../hdl/multipliers/LOOK_UP_table_module.v /home/lab1/devel/scalar_mul/testbench/ks/../../hdl/multipliers/Xor_192.v /home/lab1/devel/scalar_mul/testbench/ks/../../hdl/multipliers/LUT.v /home/lab1/devel/scalar_mul/testbench/ks/../../hdl/multipliers/Xor_16_bit.v /home/lab1/devel/scalar_mul/testbench/ks/../../hdl/multipliers/Ram_module.v /home/lab1/devel/scalar_mul/testbench/ks/../../hdl/multipliers/Xor_module.v /home/lab1/devel/scalar_mul/testbench/ks/../../hdl/multipliers/Xor_256_module.v /home/lab1/devel/scalar_mul/testbench/ks/../../hdl/multipliers/mul_64_module.v /home/lab1/devel/scalar_mul/testbench/ks/../../hdl/multipliers/sqr_slice_testing.v 
+PYTHONPATH=/home/lab1/devel/cocotb/build/libs/x86_64:/home/lab1/devel/cocotb:/home/lab1/devel/scalar_mul/testbench/ks: LD_LIBRARY_PATH=/home/lab1/devel/cocotb/build/libs/x86_64: MODULE=test_ks  \
+        TESTCASE= TOPLEVEL=state_machine_scalar_mul \
+        vvp -M /home/lab1/devel/cocotb/build/libs/x86_64 -m gpivpi sim_build/sim.vvp -vcd  
+     0.00ns INFO     cocotb.gpi                                  gpi_embed.c:205  in embed_sim_init                  Running on Icarus Verilog version 0.10.0 (devel)
+     0.00ns INFO     cocotb.gpi                                  gpi_embed.c:206  in embed_sim_init                  Python interpreter initialised and cocotb loaded!
+     0.00ns INFO     cocotb.gpi                                  __init__.py:101  in _initialise_testbench           Seeding Python random module with 1415862689
+     0.00ns INFO     cocotb.gpi                                  __init__.py:115  in _initialise_testbench           Running tests with Cocotb v0.5 from /home/lab1/devel/cocotb
+     0.00ns INFO     cocotb.regression                         regression.py:123  in initialise                      Found test test_ks.test_ks
+     0.00ns INFO     cocotb.regression                         regression.py:194  in execute                         [44m[30mRunning test 1/1:[39m[49m test_ks
+     0.00ns INFO     cocotb.coroutine.test_ks.0x1e63bd0        decorators.py:176  in send                            Starting test: "test_ks"
+                                                                                                                     Description: None
+23af4074c90a02b3fe61d286d5c87f425e6bdd81b Private_key
+Z 2154405221225477590895740573471102462221459931684
+Time in 2014-11-13 12:09:48.821692
+VCD info: dumpfile test.vcd opened for output.
+[0x5c94eee8L 0xde4e6d5eL 0xaa07d793L 0x7bbc11acL 0xfe13c053L 0x2L] 3
+[0xccdaa3d9L 0x536d538L 0x321f2e80L 0x5d38ff58L 0x89070fb0L 0x2L] 6
+[0x1L] 9
+[0x13c90000L 0xa3L] 20
+[0x0L] 21
+[0x0L] 22
+[0xe6bdd81bL 0x5c87f425L 0xe61d286dL 0x90a02b3fL 0x3af4074cL 0x2L] 23
+[0x5c94eee8L 0xde4e6d5eL 0xaa07d793L 0x7bbc11acL 0xfe13c053L 0x2L] 25
+[0xccdaa3d9L 0x536d538L 0x321f2e80L 0x5d38ff58L 0x89070fb0L 0x2L] 28
+Verilog
+1573679400199489867190875151497454984304791231103 1742539636834785081102805193367170979776891923871
+Time Out 2014-11-13 13:29:46.444459
+C [0xdf99a7fL 0xd2438d99L 0xc407c0f4L 0x598a3828L 0x13a63990L 0x1L 0x0L 0x0L]
+Python
+ 68036.62ns ERROR    cocotb.coroutine.test_ks.0x305bbd0            result.py:43   in raise_error                     Send raised exception: global name 'stb' is not defined
+                                                                                                                       File "/home/lab1/devel/cocotb/cocotb/decorators.py", line 182, in send
+                                                                                                                         return self._coro.send(value)
+                                                                                                                       File "/home/lab1/devel/scalar_mul/testbench/ks/test_ks.py", line 1195, in test_ks
+                                                                                                                       File "/home/lab1/devel/scalar_mul/testbench/ks/test_ks.py", line 799, in digitial_Verification
+                                                                                                                         Order_np = stb.str2nparray(Order)
+                                                                                                                     
+ 68036.62ns ERROR    cocotb.regression                         regression.py:180  in handle_result                   Test Failed: test_ks (result was TestError)
+ 68036.62ns ERROR    cocotb.regression                         regression.py:129  in tear_down                       Failed 1 out of 1 tests (0 skipped)
+ 68036.62ns INFO     cocotb.regression                         regression.py:133  in tear_down                       Shutting down...
+make[1]: Leaving directory `/home/lab1/devel/scalar_mul/testbench/ks'
