@@ -33,7 +33,7 @@ module Core1_Implementation#(
 	input wire         clk,
 	input wire [255:0] A,                 
 	input wire [255:0] B,                      //change
-	input wire [2:0] select_line,
+	input wire [2:0]   select_line,
 	
 	//OUTPUT
 	output[127:0] C_Out,
@@ -64,7 +64,7 @@ module Core1_Implementation#(
 		assign Data_A_LUT =(select_line==LUT)?A[63:0]:63'hz;
 		assign Data_B_LUT =(select_line==LUT)?B[63:0]:63'hz;
 		
-		assign Data_A_SQR =(select_line==SQR)?A[127:0]:128'hzz;
+		assign Data_A_SQR =(select_line==SQR)?B[127:0]:128'hzz;
 		
 		
       

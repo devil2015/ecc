@@ -28,11 +28,11 @@ module Core2_Implementation#(
 	input wire         clk,
 	input wire [127:0] A,                 
 	input wire [127:0] B,                      //change
-	input wire [2:0] select_line,
-	input wire 		In_Busy,
+	input wire [2:0]   select_line,
+	input wire 		    In_Busy,
 	//OUTPUT
-	output wire Out_Busy,
-	output[255:0] C_Out
+	output wire        Out_Busy,
+	output[255:0]      C_Out
 	
 	);
 	

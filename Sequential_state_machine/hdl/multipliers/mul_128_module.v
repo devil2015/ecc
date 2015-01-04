@@ -48,11 +48,7 @@
     assign d6 = B[5]?d5^d0<<5:d5;
     assign d7 = B[6]?d6^d0<<6:d6;
 
-    //assign mul_out = 
-	//always @(posedge clk) begin
-		//A <= mul_A;
-		//B <= mul_B;
-	//end
+ 
 	
 	always @(posedge clk) begin
 		mul_out<=B[7]?d7^d0<<7:d7;

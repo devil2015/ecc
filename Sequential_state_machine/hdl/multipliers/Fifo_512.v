@@ -22,7 +22,7 @@
 
 //A- input FIFO 1
 //B - input FIFO 2
-	module Fifo_512#(
+	module Fifo#(
 	parameter Data=512,
 	parameter Adbus=3)(
 		 input wire             clk,

@@ -20,19 +20,24 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 //command Fifo
-	module Fifo_command_Module#(
-	parameter Data=8,
-	parameter Adbus=3)(
+	module Fifo#(
+	parameter Data=32,
+	parameter Adbus=3,
+	parameter SIZE=8)(
 		 input wire             clk,
 		 input wire             wr_en,           //write enable
 		 input wire             rd_en,            //read _enable
 		 input wire [Data-1:0]  Data_in,
 		 output reg [Data-1:0]  Data_out,
-		 output wire             In_Busy,         //interupt indicate fifo full
-		 output wire		         Out_Busy       //interupt indicate fifo empty
+		 output wire            In_Busy,         //interupt indicate fifo full
+		 output wire		      Out_Busy       //interupt indicate fifo empty
+		 
+		 
+		
+		 
 		 );
 	
-	reg [Data-1:0]  register [0:7];
+	reg [Data-1:0]  register [0:SIZE];
 	reg [Adbus-1:0] rd_addr,wr_addr;                 //read write address of FIFO
 	reg [3:0] count;                               //count variable to check FIFO is full or not
 	
@@ -41,6 +46,7 @@
 		rd_addr <= 6'h0;
 		wr_addr <= 6'h0;
 		count   <= 4'h0;
+		Data_out<=32'h0;
 		end
 		
 		
