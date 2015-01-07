@@ -83,11 +83,11 @@ module Sequential_state_machine#(
 	   reg  [Data-1:0]         temp_A,temp_B,temp_C,temp_D,temp_E;
 							
 		assign adbus_A=Opcode[2:1];
-		assign Data_in_Core1_Lsb=Delay_Opcode[3]?{128'h0,data_in_A[255:128]}:data_in_A;
+		assign Data_in_Core1_Lsb[127:0]=Delay_Opcode[3]?data_in_A[255:128]:data_in_A[127:0];
+		assign Data_in_Core1_Lsb[255:128]=Delay_Opcode[3]?128'h0:data_in_A[255:128];
 		assign Data_in_Core1_Cmd =Delay_Opcode[5:4];
 		assign adbus_B=Opcode[10:9];
 		assign Data_in_Core1_Msb=data_in_B;
-		
 		
 
 			Fifo_Core_module Fifo_Core_Interface(
@@ -98,8 +98,6 @@ module Sequential_state_machine#(
 				.Core1_Inp_B(Data_in_Core1_Lsb),   //input
             .Core1_Cmd(Data_in_Core1_Cmd),   //command
             .Data_Out_Core1(Data_Out_Core1),  //Output
-				
-				
 				
 				//Core 2 Fifo Multiplication
 				.wr_en_Core2_Inp(wr_en_Core2_Inp),
@@ -147,35 +145,31 @@ module Sequential_state_machine#(
 				.Out_Busy(Out_Busy_temp) 
 				);
 				
-				
-		
 		//reg [Opcode_Size-1:0] p;
 		reg [Opcode_Size-1:0] Delay_Opcode;
 		
 		
-		
 		always @(posedge clk) begin
 			Delay_Opcode<=Opcode;
+			if(Delay_Opcode[4]==1'h1) begin
+				case(Delay_Opcode[8:6])
 			
-			case(Delay_Opcode[8:6])
-			
-			A: temp_A<=Data_Out_Core1;
-			B: temp_B<=Data_Out_Core1;
-			C: temp_C<=Data_Out_Core1;
-			D: temp_D<=Data_Out_Core1;
-			E: temp_E<=Data_Out_Core1;
-			Fifo:begin
-				wr_en_temp<=1'h1;
-				Data_In_temp<=Data_Out_Core1;
+					A: temp_A<=Data_Out_Core1;
+					B: temp_B<=Data_Out_Core1;
+					C: temp_C<=Data_Out_Core1;
+					D: temp_D<=Data_Out_Core1;
+					E: temp_E<=Data_Out_Core1;
+					Fifo:begin
+						wr_en_temp<=1'h1;
+						Data_In_temp<=Data_Out_Core1;
+						end
+					Ram_C:begin
+						w_C<=1'h1;
+						data_out_C<=Data_Out_Core1;
+						adbus_C<=Delay_Opcode[2:1];
+						end
+					endcase
 				end
-			Ram_C:begin
-				w_C<=1'h1;
-				data_out_C<=Data_Out_Core1;
-				adbus_C<=Delay_Opcode[2:1];
-				end
-			endcase
-			
 			end
-		
 		
 endmodule

@@ -21,7 +21,7 @@
 
 
 module Core1_Implementation#(
-	parameter param=4,
+	parameter param=3,
 	parameter SQR=3'b01,
 
 	parameter XOR=3'b10,

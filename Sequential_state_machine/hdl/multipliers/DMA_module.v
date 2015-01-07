@@ -32,7 +32,7 @@ parameter Data=256)(
 	//FiFO FOR Core1
 	input wire  [Data-1:0]   Core1_Inp_A,
 	input wire  [Data-1:0]   Core1_Inp_B,
-	input wire [7:0]         Core1_Cmd,
+	input wire [2:0]         Core1_Cmd,
 	output wire [Data-1:0]   Data_Out_Core1,
 	
 	//FiFO FOR Core2
@@ -42,7 +42,7 @@ parameter Data=256)(
 	output wire             In_Busy_Core2_Inp,
 	
 	input wire              wr_en_Core2_Cmd,
-	input wire [7:0]        Data_in_Core2_Cmd,
+	input wire [3:0]        Data_in_Core2_Cmd,
 	output wire             In_Busy_Core2_Cmd,
 	
 	
@@ -56,9 +56,6 @@ parameter Data=256)(
 
 
 	initial begin
-		//$dumpfile("test.vcd");
-		//$dumpvars();
-		
 		wr_en_Core2_Output<=1'h0;		
 	end
   
@@ -69,7 +66,7 @@ parameter Data=256)(
 	wire [Data-1:0]   Data_Out_Core2_Inp;
 	wire              Out_Busy_Core2_Inp;
 
-	 Fifo_256 Fifo_Input_Core2(
+	 Fifo_256#(256,3) Fifo_Input_Core2(
 				.clk(clk),
 				.wr_en(wr_en_Core2_Inp),           //write enable
 				.rd_en(rd_en_Core2_Inp),            //read _enable
@@ -80,11 +77,9 @@ parameter Data=256)(
 		 );
 		 
 	assign rd_en_Core2_Inp =Out_Busy_Core2_Inp?1'h0:1'h1;
-		 
-		  
-	
-	wire [127:0] Core1_Out_C,Core1_Out_D;
 
+
+	wire [127:0] Core1_Out_C,Core1_Out_D;
 	
 	assign Data_Out_Core1={Core1_Out_C,Core1_Out_D};
 
@@ -117,19 +112,20 @@ parameter Data=256)(
 				
 				
 	wire          rd_en_Core2_Cmd;
-	wire [7:0]    Data_Out_Core2_Cmd;
-	wire         Out_Busy_Core2_Cmd;
+	wire [3:0]    Data_Out_Core2_Cmd;
+	wire          Out_Busy_Core2_Cmd;
 	
 		
-		Fifo_command_Module Fifo_Command2(
-						.clk(clk),
-						.wr_en(wr_en_Core2_Cmd),           //write enable
-						.rd_en(rd_en_Core2_Cmd),            //read _enable
-						.Data_in(Data_in_Core2_Cmd),
-						.Data_out(Data_Out_Core2_Cmd),
-						.In_Busy(In_Busy_Core2_Cmd),         //interupt indicate fifo full
-						.Out_Busy(Out_Busy_Core2_Cmd)
-							);
+	
+		Fifo_256#(4,3) Fifo_Cmd(
+				.clk(clk),
+				.wr_en(wr_en_Core2_Cmd),           //write enable
+				.rd_en(rd_en_Core2_Cmd),            //read _enable
+				.Data_in(Data_in_Core2_Cmd),
+				.Data_out(Data_Out_Core2_Cmd),
+				.In_Busy(In_Busy_Core2_Cmd),         //interupt indicate fifo full
+				.Out_Busy(Out_Busy_Core2_Cmd)        //interupt indicate fifo empty
+		 );
 				
 				
 	 assign rd_en_Core2_Cmd =Out_Busy_Core2_Cmd?1'h0:1'h1;

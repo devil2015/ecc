@@ -37,7 +37,7 @@ module Core2_Implementation#(
 	);
 	
 	//OUTPUT PORTS
-	wire [255:0] Data_C_Out[1:0];   
+	wire [255:0] Data_C_Out;   
 	//INPUT PORTS
 	wire [127:0] Data_A_MUL,Data_B_MUL;
 
@@ -51,14 +51,14 @@ module Core2_Implementation#(
 			.clk(clk),
 			.A(Data_A_MUL),
 			.B(Data_B_MUL),
-			.mul_128(Data_C_Out[MUL]),
+			.mul_128(Data_C_Out),
 			.In_Busy(In_Busy),
 			.Out_Busy(Out_Busy)
 		);
 		
 		
 
-		assign C_Out=Data_C_Out[select_line];
+		assign C_Out=Data_C_Out;
 
 endmodule	
 
