@@ -22,18 +22,18 @@
 
 module Core1_Implementation#(
 	parameter param=3,
-	parameter SQR=3'b01,
+	parameter SQR=2'b01,
 
-	parameter XOR=3'b10,
-	parameter LUT=3'b11,
-	parameter MASK=3'b100
+	parameter XOR=2'b10,
+	parameter LUT=2'b11,
+	parameter MASK=2'b00
 	)(
 	
    //INPUTS
 	input wire         clk,
 	input wire [255:0] A,                 
 	input wire [255:0] B,                      //change
-	input wire [2:0]   select_line,
+	input wire [1:0]   select_line,
 	
 	//OUTPUT
 	output[127:0] C_Out,
@@ -64,7 +64,7 @@ module Core1_Implementation#(
 		assign Data_A_LUT =(select_line==LUT)?A[63:0]:63'hz;
 		assign Data_B_LUT =(select_line==LUT)?B[63:0]:63'hz;
 		
-		assign Data_A_SQR =(select_line==SQR)?B[127:0]:128'hzz;
+		assign Data_A_SQR =(select_line==SQR)?A[127:0]:128'hzz;
 		
 		
       
