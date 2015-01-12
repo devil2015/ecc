@@ -32,7 +32,7 @@
 		//FiFO FOR Core1
 		input wire  [Data-1:0]   Core1_Inp_A,
 		input wire  [Data-1:0]   Core1_Inp_B,
-		input wire [2:0]         Core1_Cmd,
+		input wire [1:0]         Core1_Cmd,
 		output wire [Data-1:0]   Data_Out_Core1,
 		
 		//FiFO FOR Core2
@@ -95,7 +95,7 @@
 		
 	wire [127:0] Core2_Inp_A,Core2_Inp_B;
 	wire [255:0] Core2_Out_C;
-	wire [2:0]   Core2_Select_Line;
+	wire [1:0]   Core2_Select_Line;
 	wire         Out_Busy_Core2; 	
 		
 		Core2_Implementation  Core2(

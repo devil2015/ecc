@@ -23,15 +23,15 @@
 		parameter addr=6,
 		parameter Command_len=6)(
 
-			input wire            clk,
-			input wire [5:0]      Command,
+			input wire             clk,
+			input wire [5:0]       Command,
 			//Port to writing input to respective Ram
-			input wire            wr_en,	
-			input wire [Data-1:0] Data_in,
-			input wire [addr-1:0] Addr,
+			input wire             wr_en,	
+			input wire [Data-1:0]  Data_in,
+			input wire [addr-1:0]  Addr,
 			output wire [Data-1:0] Data_Out,
 			
-			input wire [63:0]     Data_Polynomial  
+			input wire [63:0]      Data_Polynomial  
 
 			
 		 );
